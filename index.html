@@ -533,7 +533,7 @@ SERIES.forEach(s=>{
     card.dataset.idx = idx;
     card.innerHTML = `<img src="${full}" alt="${s.name}圖卡" loading="lazy" />
       <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg></span>`;
-    card.addEventListener("click",()=>openLB(idx));
+    card.addEventListener("click",()=>openLB(allFull, idx));
     grid.appendChild(card);
   });
   sec.appendChild(grid);
@@ -554,18 +554,19 @@ for(let c=0;c<cols;c++){
 }
 
 const lb=document.getElementById("lb"), lbImg=document.getElementById("lbImg");
-let cur=0;
-function openLB(i){cur=i;lbImg.src=allFull[i];lb.classList.add("open");document.body.style.overflow="hidden";}
+const lbPrev=document.getElementById("lbPrev"), lbNext=document.getElementById("lbNext");
+let lbList=[], lbIdx=0;
+function openLB(list,i){lbList=list;lbIdx=i;lbImg.src=list[i];const multi=list.length>1;lbPrev.style.display=lbNext.style.display=multi?"":"none";lb.classList.add("open");document.body.style.overflow="hidden";}
 function closeLB(){lb.classList.remove("open");document.body.style.overflow="";}
-function step(d){cur=(cur+d+allFull.length)%allFull.length;lbImg.src=allFull[cur];}
+function step(d){if(lbList.length<2)return;lbIdx=(lbIdx+d+lbList.length)%lbList.length;lbImg.src=lbList[lbIdx];}
 document.getElementById("lbX").onclick=closeLB;
-document.getElementById("lbPrev").onclick=e=>{e.stopPropagation();step(-1)};
-document.getElementById("lbNext").onclick=e=>{e.stopPropagation();step(1)};
+lbPrev.onclick=e=>{e.stopPropagation();step(-1)};
+lbNext.onclick=e=>{e.stopPropagation();step(1)};
 lb.addEventListener("click",e=>{if(e.target===lb)closeLB()});
-document.querySelectorAll("[data-full]").forEach(el=>{
-  el.style.cursor="zoom-in";
-  el.addEventListener("click",()=>{lbImg.src=el.dataset.full;lb.classList.add("open");document.body.style.overflow="hidden";});
-});
+// 封面（課程封面＋部落格封面）自成一組，左右只在封面裡循環
+const coverEls=[...document.querySelectorAll("[data-full]")];
+const coversList=coverEls.map(el=>el.dataset.full);
+coverEls.forEach((el,i)=>{el.style.cursor="zoom-in";el.addEventListener("click",()=>openLB(coversList,i));});
 document.addEventListener("keydown",e=>{
   if(!lb.classList.contains("open"))return;
   if(e.key==="Escape")closeLB();
