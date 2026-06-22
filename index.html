@@ -81,9 +81,12 @@ section{position:relative}
 .topbar.solid{background:rgba(7,5,20,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .brand{font-weight:900;letter-spacing:.04em;font-size:17px}
 .brand small{color:var(--cyan)}
-.topcta{font-size:14px;font-weight:700;padding:9px 18px;border-radius:999px;color:#fff;text-decoration:none;
-  background:linear-gradient(100deg,var(--purple),var(--blue));box-shadow:0 0 0 1px rgba(140,150,255,.4),0 10px 30px -12px rgba(124,58,237,.8);transition:transform .25s,filter .25s}
-.topcta:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.topcta{font-size:14.5px;font-weight:800;letter-spacing:.02em;padding:11px 22px;border-radius:999px;color:#1b0f04;text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+  background:linear-gradient(100deg,#ffb02e,#ff7a2e);
+  box-shadow:0 0 0 1px rgba(255,180,120,.5),0 10px 30px -10px rgba(255,122,46,.9);
+  animation:ctaPulse 2.6s ease-in-out infinite;transition:transform .25s,filter .25s}
+.topcta:hover{transform:translateY(-2px) scale(1.03);filter:brightness(1.08);animation-play-state:paused}
+@keyframes ctaPulse{0%,100%{box-shadow:0 0 0 1px rgba(255,180,120,.5),0 8px 24px -10px rgba(255,122,46,.8)}50%{box-shadow:0 0 0 1px rgba(255,205,150,.95),0 12px 36px -8px rgba(255,122,46,1),0 0 24px -2px rgba(255,140,60,.7)}}
 @media(max-width:640px){.topbar{padding:12px 18px}.brand{font-size:15px}.topcta{padding:8px 14px;font-size:13px}}
 
 /* HERO */
@@ -264,6 +267,7 @@ section{position:relative}
   .hero-col.up,.hero-col.down{animation:none}
   .reveal{transition:none;opacity:1;transform:none}
   .scrollcue .dot::after{animation:none}
+  .topcta{animation:none}
 }
 </style>
 </head>
@@ -272,7 +276,7 @@ section{position:relative}
 <!-- TOP BAR -->
 <div class="topbar" id="topbar">
   <div class="brand">四週 ChatGPT <small>日系視覺挑戰營</small></div>
-  <a class="topcta" href="https://chichu.co/event/4-weeks-chatgpt-visual-camp" target="_blank" rel="noopener">看課程 · 報名</a>
+  <a class="topcta" href="https://chichu.co/event/4-weeks-chatgpt-visual-camp" target="_blank" rel="noopener">立即報名 <span aria-hidden="true">→</span></a>
 </div>
 
 <!-- HERO -->
@@ -486,7 +490,7 @@ section{position:relative}
     </div>
     <div class="note reveal d1">
       <span class="tag">課程說明</span>
-      <p>本課會提供完整的<b>範例文案</b>讓你直接套用，但不包含「如何寫出這些文案」的教學——文案寫作不在本課範圍。第四週教你的，是用 AI 把現成的文案與圖片，產生成一份<b>可直接上線的 HTML 銷售頁</b>，並會用 Netlify Drop 補充示範怎麼把這份 HTML 拖上線（本質上就是一個 HTML 檔案）。若你想改貼進自己的 CMS（如 WordPress、Ghost），因為各平台對 HTML 的支援不同，呈現上可能會有差異。</p>
+      <p>本課會提供完整的<b>範例文案</b>讓你直接套用，但不教「怎麼寫文案」，文案寫作不在本課範圍。第四週教你用 AI 把現成的文案和圖片，產生成一份 HTML 銷售頁。<br><br>要特別提醒：<b>產生出 HTML，只是做出一個「檔案」，它不會自己上線</b>；你得把這個檔案放到一個「代管空間」，別人才看得到。<br><br>課程會示範最簡單的一條路：用 Netlify Drop 拖檔上線，它本身就是一個代管服務。如果你已經有自己的網站或 CMS（像 WordPress、Ghost），也可以把這份 HTML 放進去。</p>
     </div>
   </div>
 </section>
