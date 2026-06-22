@@ -532,7 +532,6 @@ const SERIES = [
 ];
 
 const galWrap = document.getElementById("galleries");
-const allFull = [];
 SERIES.forEach(s=>{
   const sec = document.createElement("div");
   sec.className = "series reveal";
@@ -543,16 +542,14 @@ SERIES.forEach(s=>{
   sec.appendChild(head);
   const grid = document.createElement("div");
   grid.className = "grid" + (s.tall ? " gtall" : "");
-  s.cards.forEach(c=>{
-    const full = c.indexOf("/")>=0 ? c : `${s.dir}/${c}.jpg`;
-    allFull.push(full);
-    const idx = allFull.length-1;
+  const seriesFull = s.cards.map(c=> c.indexOf("/")>=0 ? c : `${s.dir}/${c}.jpg`);
+  s.cards.forEach((c,ci)=>{
+    const full = seriesFull[ci];
     const card = document.createElement("div");
     card.className = "card" + (s.tall ? " tall" : "");
-    card.dataset.idx = idx;
     card.innerHTML = `<img src="${full}" alt="${s.name}圖卡" loading="lazy" />
       <span class="zoom"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg></span>`;
-    card.addEventListener("click",()=>openLB(allFull, idx));
+    card.addEventListener("click",()=>openLB(seriesFull, ci));
     grid.appendChild(card);
   });
   sec.appendChild(grid);
@@ -582,10 +579,14 @@ document.getElementById("lbX").onclick=closeLB;
 lbPrev.onclick=e=>{e.stopPropagation();step(-1)};
 lbNext.onclick=e=>{e.stopPropagation();step(1)};
 lb.addEventListener("click",e=>{if(e.target===lb)closeLB()});
-// 封面（課程封面＋部落格封面）自成一組，左右只在封面裡循環
-const coverEls=[...document.querySelectorAll("[data-full]")];
-const coversList=coverEls.map(el=>el.dataset.full);
-coverEls.forEach((el,i)=>{el.style.cursor="zoom-in";el.addEventListener("click",()=>openLB(coversList,i));});
+// 每個區塊各自一組：左右只在「同一區塊」裡循環，不跨區
+function bindGroup(selector){
+  const els=[...document.querySelectorAll(selector)];
+  const list=els.map(el=>el.dataset.full);
+  els.forEach((el,i)=>{el.style.cursor="zoom-in";el.addEventListener("click",()=>openLB(list,i));});
+}
+bindGroup(".ccover[data-full]");   // 真實課程封面（2 張，自成一組）
+bindGroup(".cov[data-full]");      // 部落格封面（自成一組）
 document.addEventListener("keydown",e=>{
   if(!lb.classList.contains("open"))return;
   if(e.key==="Escape")closeLB();
