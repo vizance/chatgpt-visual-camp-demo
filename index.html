@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>四週 ChatGPT 日系視覺挑戰營｜成果展示</title>
-<meta name="description" content="四週，做出 1 張主視覺 × 30+ 張系列知識圖卡 × 1 套分區圖庫 × 1 頁銷售頁。同一套日系視覺工作流，能產出多少作品。" />
+<meta name="description" content="四週，做出 1 張主視覺 × 10+ 張系列知識圖卡 × 1 套分區圖庫 × 1 頁銷售頁。同一套日系視覺工作流，能產出多少作品。" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Klee+One:wght@400;600&display=swap" rel="stylesheet" />
@@ -164,7 +164,7 @@ section{position:relative}
 .series-head h3{font-size:21px;font-weight:900}
 .series-head .meta{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.08em}
 .grid{display:grid;gap:18px;grid-template-columns:repeat(5,1fr)}
-.grid.g4{grid-template-columns:repeat(4,1fr)}
+.grid.gtall{align-items:start}
 .card{position:relative;border-radius:14px;overflow:hidden;cursor:pointer;background:var(--bg3);border:1px solid var(--line);
   box-shadow:0 14px 34px -22px rgba(0,0,0,.9);transform:translateY(0);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s;aspect-ratio:1/1}
 .card img{height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
@@ -186,15 +186,11 @@ section{position:relative}
 .browser .bar i{width:11px;height:11px;border-radius:50%;background:var(--line-2);display:inline-block}
 .browser .bar .url{margin-left:14px;font-size:12px;color:var(--ink-soft);background:rgba(7,5,20,.6);padding:5px 14px;border-radius:999px;border:1px solid var(--line);letter-spacing:.04em}
 .browser .shot{height:540px;overflow:hidden;position:relative;cursor:ns-resize}
-.browser .shot img{width:100%;transition:transform 20s linear}
+.browser .shot img{width:100%;transition:transform 40s linear}
 .browser .shot:hover img{transform:translateY(calc(540px - 100%))}
-.browser .hint{position:absolute;right:16px;bottom:16px;z-index:3;background:rgba(7,5,20,.82);color:var(--cyan);font-size:12px;letter-spacing:.08em;padding:8px 14px;border-radius:999px;border:1px solid rgba(52,224,255,.4);backdrop-filter:blur(4px);pointer-events:none;transition:opacity .4s}
-.browser .shot:hover .hint{opacity:0}
-@media(max-width:760px){
-  .browser .shot img{animation:lpscroll 28s linear infinite alternate;transition:none}
-  .browser .shot:hover img{transform:none}
-  @keyframes lpscroll{from{transform:translateY(0)}to{transform:translateY(calc(540px - 100%))}}
-}
+.browser .shot.played img{transform:translateY(calc(540px - 100%));transition-duration:26s}
+.browser .hint{position:absolute;right:16px;bottom:16px;z-index:3;background:rgba(7,5,20,.82);color:var(--cyan);font-size:12.5px;letter-spacing:.06em;padding:8px 14px;border-radius:999px;border:1px solid rgba(52,224,255,.4);backdrop-filter:blur(4px);pointer-events:none;transition:opacity .4s}
+.browser .shot:hover .hint,.browser .shot.played .hint{opacity:0}
 .zones{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
 .zone{padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(21,16,58,.4)}
 .zone b{display:block;font-weight:700;margin-bottom:6px}
@@ -259,14 +255,14 @@ section{position:relative}
     <div class="hud">
       <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
       <span class="eyebrow en">BUILD YOUR VISUAL SYSTEM</span>
-      <h1>四週，做出一整櫃<br><span class="grad">日系視覺</span>作品集。</h1>
+      <h1>四週，做出一系列<br><span class="grad">日系視覺</span>作品集。</h1>
       <p class="lead">封面、圖卡、銷售頁，全部出自同一套「文字 → 設計規格 → 生圖」的工作流。沒有設計背景，一樣做得出來。</p>
       <p class="jp-sub jp">文字から、売れるビジュアルへ。</p>
       <p class="script-line script">打造你的 AI 視覺工作流</p>
       <div class="hudbar">
         <span class="it"><b class="grad-cb">1</b><span>張主視覺</span></span>
         <span class="x">✕</span>
-        <span class="it"><b class="grad-cb">30+</b><span>張知識圖卡</span></span>
+        <span class="it"><b class="grad-cb">10+</b><span>張知識圖卡</span></span>
         <span class="x">✕</span>
         <span class="it"><b class="grad-cb">1</b><span>套分區圖庫</span></span>
         <span class="x">✕</span>
@@ -327,12 +323,9 @@ section{position:relative}
       <div class="cov" data-full="assets/covers-blog/cover-465.jpg"><img src="assets/covers-blog/cover-465.jpg" alt="部落格封面實例：拼接式圖卡" loading="lazy" /></div>
       <div class="cov" data-full="assets/covers-blog/cover-469.jpg"><img src="assets/covers-blog/cover-469.jpg" alt="部落格封面實例：AI 任務分配心法" loading="lazy" /></div>
       <div class="cov" data-full="assets/covers-blog/cover-468.jpg"><img src="assets/covers-blog/cover-468.jpg" alt="部落格封面實例：ChatGPT Image 知識圖卡" loading="lazy" /></div>
-      <div class="cov" data-full="assets/covers-blog/cover-462.jpg"><img src="assets/covers-blog/cover-462.jpg" alt="部落格封面實例：一人公司系列 03" loading="lazy" /></div>
-      <div class="cov" data-full="assets/covers-blog/cover-466.jpg"><img src="assets/covers-blog/cover-466.jpg" alt="部落格封面實例：Gamma 簡報" loading="lazy" /></div>
       <div class="cov" data-full="assets/covers-blog/cover-459.jpg"><img src="assets/covers-blog/cover-459.jpg" alt="部落格封面實例：日系 Landing Page 圖片" loading="lazy" /></div>
       <div class="cov" data-full="assets/covers-blog/cover-463.jpg"><img src="assets/covers-blog/cover-463.jpg" alt="部落格封面實例：Framework SOP Reflection" loading="lazy" /></div>
       <div class="cov" data-full="assets/covers-blog/cover-464.jpg"><img src="assets/covers-blog/cover-464.jpg" alt="部落格封面實例：7 個系統" loading="lazy" /></div>
-      <div class="cov" data-full="assets/covers-blog/cover-448.jpg"><img src="assets/covers-blog/cover-448.jpg" alt="部落格封面實例：一人公司系列 02" loading="lazy" /></div>
       <div class="cov" data-full="assets/covers-blog/cover-445.jpg"><img src="assets/covers-blog/cover-445.jpg" alt="部落格封面實例：一人公司系列 01" loading="lazy" /></div>
     </div>
   </div>
@@ -344,7 +337,7 @@ section{position:relative}
     <div class="sec-head reveal">
       <span class="weektag grad-cb">WEEK 02</span>
       <h2>不是一張，是一整套<br>看起來「像同一個人做的」圖卡</h2>
-      <p>學會用 8 段敘事弧線 ＋ 風格鎖定批次產出。同一套方法，能做出風格南轅北轍卻各自成套的系列——這就是下面這四組的由來。</p>
+      <p>學會用 8 段敘事弧線 ＋ 風格鎖定批次產出。同一套方法，能做出風格南轅北轍卻各自成套的系列——這就是下面這幾組的由來。</p>
     </div>
     <div id="galleries"></div>
   </div>
@@ -463,7 +456,7 @@ section{position:relative}
   <div class="wrap">
     <span class="eyebrow en" style="justify-content:center">YOUR TURN</span>
     <h2>四週後，<br>這一櫃作品會是<span class="grad">你的</span>。</h2>
-    <p>1 張主視覺、30+ 張系列圖卡、1 整套分區圖庫、1 頁銷售頁——你未來開課、接案、經營個人品牌時，最有力的作品證據。</p>
+    <p>1 張主視覺、10+ 張系列圖卡、1 整套分區圖庫、1 頁銷售頁——你未來開課、接案、經營個人品牌時，最有力的作品證據。</p>
     <a class="btn btn-primary" href="https://chichu.co/event/4-weeks-chatgpt-visual-camp" target="_blank" rel="noopener">看完整課程內容 · 立即報名 →</a>
     <div class="price">8/17（一）開營　·　名額有限，各通路皆有專屬報名優惠</div>
   </div>
@@ -486,8 +479,10 @@ const SERIES = [
     cards:["card-02","card-03","card-04","card-05","card-06","card-07","card-08","card-09","card-10","card-11"], dir:"assets/cards" },
   { key:"dark", name:"暗黑週復盤系列", meta:"DARK HUD · 科技感主題", color:"#ff7a59",
     cards:["card-22","card-23","card-24","card-25","card-26","card-27","card-28","card-29","card-30","card-31"], dir:"assets/cards" },
-  { key:"hand", name:"手繪筆記系列", meta:"HAND-DRAWN · 筆記主題", color:"#c4b5fd",
-    cards:["misc-01","misc-02","misc-03"], dir:"assets/misc", tall:true },
+  { key:"hand23", name:"手繪筆記 · 2:3 直式", meta:"HAND-DRAWN · 高資訊密度清單", color:"#c4b5fd", tall:true,
+    cards:["assets/misc/misc-01.jpg","assets/hand/hand-01.jpg","assets/hand/hand-03.jpg","assets/hand/hand-06.jpg","assets/hand/hand-07.jpg"] },
+  { key:"hand45", name:"手繪筆記 · 4:5 直式", meta:"HAND-DRAWN · 敘事與步驟", color:"#b794f6", tall:true,
+    cards:["assets/hand/hand-02.jpg","assets/misc/misc-03.jpg","assets/hand/hand-08.jpg","assets/hand/hand-04.jpg","assets/misc/misc-02.jpg"] },
 ];
 
 const galWrap = document.getElementById("galleries");
@@ -501,9 +496,9 @@ SERIES.forEach(s=>{
       <h3>${s.name}</h3></div><div class="meta">${s.meta} · ${s.cards.length} 張</div>`;
   sec.appendChild(head);
   const grid = document.createElement("div");
-  grid.className = "grid" + (s.key==="hand" ? " g4" : "");
+  grid.className = "grid" + (s.tall ? " gtall" : "");
   s.cards.forEach(c=>{
-    const full = `${s.dir}/${c}.jpg`;
+    const full = c.indexOf("/")>=0 ? c : `${s.dir}/${c}.jpg`;
     allFull.push(full);
     const idx = allFull.length-1;
     const card = document.createElement("div");
@@ -520,7 +515,7 @@ SERIES.forEach(s=>{
 
 const heroWall = document.getElementById("heroWall");
 const pool = [];
-SERIES.forEach(s=>s.cards.forEach(c=>pool.push(`${s.dir}/${c}.jpg`)));
+SERIES.forEach(s=>s.cards.forEach(c=>pool.push(c.indexOf("/")>=0 ? c : `${s.dir}/${c}.jpg`)));
 function colImgs(offset){const arr=[];for(let i=0;i<5;i++){arr.push(pool[(offset + i*7) % pool.length]);}return arr;}
 const cols = window.innerWidth < 760 ? 4 : 6;
 for(let c=0;c<cols;c++){
@@ -555,6 +550,19 @@ const io=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){e
 document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 const tb=document.getElementById("topbar");
 addEventListener("scroll",()=>{tb.classList.toggle("solid",scrollY>40)});
+
+// Week 3 行動裝置（無滑鼠）：捲進畫面自動播一次、到底就停；點一下可重播
+(function(){
+  const shot=document.querySelector(".browser .shot");
+  if(!shot) return;
+  const hint=shot.querySelector(".hint");
+  if(window.matchMedia("(hover: none)").matches){
+    if(hint) hint.textContent="整頁預覽 · 捲到此自動播放";
+    const so=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){shot.classList.add("played");so.disconnect();}});},{threshold:.45});
+    so.observe(shot);
+    shot.addEventListener("click",()=>{shot.classList.remove("played");void shot.offsetWidth;shot.classList.add("played");});
+  }
+})();
 </script>
 </body>
 </html>
