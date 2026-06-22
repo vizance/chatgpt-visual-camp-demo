@@ -186,11 +186,11 @@ section{position:relative}
 .browser .bar i{width:11px;height:11px;border-radius:50%;background:var(--line-2);display:inline-block}
 .browser .bar .url{margin-left:14px;font-size:12px;color:var(--ink-soft);background:rgba(7,5,20,.6);padding:5px 14px;border-radius:999px;border:1px solid var(--line);letter-spacing:.04em}
 .browser .shot{height:540px;overflow:hidden;position:relative;cursor:ns-resize}
-.browser .shot img{width:100%;transition:transform 40s linear}
-.browser .shot:hover img{transform:translateY(calc(540px - 100%))}
-.browser .shot.played img{transform:translateY(calc(540px - 100%));transition-duration:26s}
+.browser .shot img{width:100%;will-change:transform}
 .browser .hint{position:absolute;right:16px;bottom:16px;z-index:3;background:rgba(7,5,20,.82);color:var(--cyan);font-size:12.5px;letter-spacing:.06em;padding:8px 14px;border-radius:999px;border:1px solid rgba(52,224,255,.4);backdrop-filter:blur(4px);pointer-events:none;transition:opacity .4s}
-.browser .shot:hover .hint,.browser .shot.played .hint{opacity:0}
+.browser .hint.hide{opacity:0}
+.browser .openfull{position:absolute;left:16px;bottom:16px;z-index:4;display:inline-flex;align-items:center;gap:6px;background:rgba(7,5,20,.82);color:var(--cyan);font-size:12.5px;font-weight:600;letter-spacing:.04em;padding:8px 14px;border-radius:999px;border:1px solid rgba(52,224,255,.4);backdrop-filter:blur(4px);text-decoration:none;transition:background .25s,transform .25s}
+.browser .openfull:hover{background:rgba(52,224,255,.22);transform:translateY(-2px)}
 .zones{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
 .zone{padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(21,16,58,.4)}
 .zone b{display:block;font-weight:700;margin-bottom:6px}
@@ -210,6 +210,11 @@ section{position:relative}
 .wf-accent{fill:rgba(168,85,247,.45)}
 .wf-ink{fill:rgba(52,224,255,.35)}
 @media(max-width:860px){.wires{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+.note{margin-top:36px;padding:20px 24px;border:1px solid var(--line-2);border-left:3px solid var(--cyan);border-radius:12px;background:rgba(21,16,58,.42);display:flex;gap:16px;align-items:flex-start}
+.note .tag{flex:none;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--cyan);padding:4px 11px;border:1px solid rgba(52,224,255,.4);border-radius:999px;margin-top:3px;white-space:nowrap}
+.note p{font-size:14.5px;color:var(--ink-soft);line-height:1.9}
+.note b{color:var(--ink);font-weight:700}
+@media(max-width:560px){.note{flex-direction:column;gap:12px;padding:18px 18px}}
 
 /* final cta */
 .final{padding:110px 0;text-align:center;background:linear-gradient(180deg,var(--bg) 0%,rgba(21,16,58,.6) 100%);border-top:1px solid var(--line);position:relative;overflow:hidden}
@@ -354,7 +359,8 @@ section{position:relative}
     <div class="browser reveal">
       <div class="bar"><i></i><i></i><i></i><span class="url">chichu.co/event/4-weeks-chatgpt-visual-camp</span></div>
       <div class="shot">
-        <span class="hint">滑鼠移上去 · 看整頁捲動 ↕</span>
+        <span class="hint">滑鼠上下移動 · 捲動銷售頁</span>
+        <a class="openfull" href="assets/lp/landing.jpg" target="_blank" rel="noopener">看完整銷售頁 ⤢</a>
         <img src="assets/lp/landing.jpg" alt="挑戰營銷售頁分區圖庫範例" loading="lazy" />
       </div>
     </div>
@@ -447,6 +453,10 @@ section{position:relative}
         </svg>
         <div class="cap"><b>Zig-Zag · 鋸齒交錯</b><span>適合功能逐一說明、流程展示</span></div>
       </div>
+    </div>
+    <div class="note reveal d1">
+      <span class="tag">課程說明</span>
+      <p>本課會提供完整的<b>範例文案</b>讓你直接套用，但不包含「如何寫出這些文案」的教學——文案寫作不在本課範圍。第四週教你的，是把現成的文案與圖片，用 AI 排成能<b>直接貼進 CMS 的 HTML</b>。實際怎麼排，會依你使用的 CMS（自架站、WordPress、Ghost、各家課程平台）而有所不同，課程也會帶你依自己的平台調整。</p>
     </div>
   </div>
 </section>
@@ -551,16 +561,51 @@ document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 const tb=document.getElementById("topbar");
 addEventListener("scroll",()=>{tb.classList.toggle("solid",scrollY>40)});
 
-// Week 3 行動裝置（無滑鼠）：捲進畫面自動播一次、到底就停；點一下可重播
+// Week 3 銷售頁預覽：桌面用滑鼠當捲軸（停哪看哪）；手機自動播、點一下暫停／繼續
 (function(){
   const shot=document.querySelector(".browser .shot");
   if(!shot) return;
+  const img=shot.querySelector("img");
   const hint=shot.querySelector(".hint");
-  if(window.matchMedia("(hover: none)").matches){
-    if(hint) hint.textContent="整頁預覽 · 捲到此自動播放";
-    const so=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){shot.classList.add("played");so.disconnect();}});},{threshold:.45});
-    so.observe(shot);
-    shot.addEventListener("click",()=>{shot.classList.remove("played");void shot.offsetWidth;shot.classList.add("played");});
+  const FRAME=540;
+  const maxShift=()=>Math.max(0, img.offsetHeight-FRAME);
+  const setY=y=>{img.style.transform="translateY("+(-y)+"px)";};
+  const hideHint=()=>{ if(hint) hint.classList.add("hide"); };
+
+  if(window.matchMedia("(hover: hover)").matches){
+    // 桌面：滑鼠在框內上下移動 = 捲動，移開停在原地
+    if(hint) hint.textContent="滑鼠上下移動 · 捲動銷售頁";
+    img.style.transition="transform .18s ease-out";
+    shot.addEventListener("mouseenter",hideHint);
+    shot.addEventListener("mousemove",e=>{
+      const r=shot.getBoundingClientRect();
+      let f=(e.clientY-r.top)/r.height;
+      f=Math.max(0,Math.min(1,f));
+      setY(f*maxShift());
+    });
+  } else {
+    // 手機：滑進畫面自動播一次，點一下暫停／再點繼續；到底停住
+    if(hint) hint.textContent="整頁預覽 · 點一下暫停／繼續";
+    img.style.transition="none";
+    const DUR=26000;
+    let curY=0, playing=false, last=0, raf=0, started=false;
+    const speed=()=>maxShift()/DUR;
+    function tick(t){
+      if(!playing) return;
+      const dt=last? t-last:0; last=t;
+      curY=Math.min(maxShift(), curY+speed()*dt);
+      setY(curY);
+      if(curY<maxShift()){ raf=requestAnimationFrame(tick); } else { playing=false; }
+    }
+    function play(){ if(playing) return; if(curY>=maxShift()) curY=0; playing=true; last=0; raf=requestAnimationFrame(tick); }
+    function pause(){ playing=false; cancelAnimationFrame(raf); }
+    const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting && !started){ started=true; play(); } }),{threshold:.45});
+    io.observe(shot);
+    shot.addEventListener("click",e=>{
+      if(e.target.closest(".openfull")) return;
+      hideHint();
+      playing? pause() : play();
+    });
   }
 })();
 </script>
