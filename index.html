@@ -155,6 +155,13 @@ section{position:relative}
 .cov:hover::after{opacity:1}
 @media(max-width:900px){.covers{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.covers{grid-template-columns:repeat(2,1fr);gap:12px}}
+.course-covers{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:34px}
+.ccover{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line-2);box-shadow:0 30px 64px -36px rgba(124,58,237,.6),0 0 0 1px rgba(52,224,255,.06);cursor:zoom-in;background:var(--bg3)}
+.ccover img{transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.ccover:hover img{transform:scale(1.05)}
+.ccover .tag{position:absolute;top:13px;left:13px;z-index:2;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--cyan);background:rgba(7,5,20,.72);border:1px solid rgba(52,224,255,.42);padding:5px 11px;border-radius:999px}
+.ccover figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:34px 18px 15px;font-size:14.5px;font-weight:700;color:#fff;background:linear-gradient(to top,rgba(7,5,20,.92),transparent)}
+@media(max-width:560px){.course-covers{grid-template-columns:1fr}}
 
 /* week 2 gallery */
 .series{margin-bottom:62px}
@@ -298,26 +305,32 @@ section{position:relative}
     <div class="sec-head reveal">
       <span class="weektag grad-cb">WEEK 01</span>
       <h2>一張能直接上架的<br>日系課程封面</h2>
-      <p>用「文字 → 5 模組設計規格 → 生圖」的工作流，把腦中的感覺翻譯成 AI 看得懂的指令，做出能直接放上課程平台的 3:2 主視覺。</p>
+      <p>用「文字 → 5 模組設計規格 → 生圖」的工作流，把腦中的感覺翻譯成 AI 看得懂的指令，做出能直接放上課程平台的課程主視覺。下面這兩張，就是用這套方法做出來的真實課程封面。</p>
     </div>
-    <div class="cover-grid">
-      <div class="cover-frame reveal" data-full="assets/cover/cover.jpg">
-        <span class="cover-badge">3:2 課程封面 · COVER</span>
-        <img src="assets/cover/cover.jpg" alt="ChatGPT 日系課程封面主視覺範例" loading="lazy" />
-      </div>
-      <div class="cover-copy reveal d1">
-        <h4>不靠設計理論，靠一套文字框架</h4>
-        <p>你不需要會 Photoshop，只要學會把想要的氛圍，拆成五個可描述的模組，剩下 80% 的設計工作交給 AI。</p>
-        <div class="flowline">
-          <div class="step"><span class="n grad-cb">1</span><div class="t"><b>寫下一句話</b><span>這張封面想傳達什麼感覺</span></div></div>
-          <div class="step"><span class="n grad-cb">2</span><div class="t"><b>套 5 模組設計規格</b><span>色彩・字體・構圖・氛圍・主題</span></div></div>
-          <div class="step"><span class="n grad-cb">3</span><div class="t"><b>生圖 → 微調 → 完成</b><span>換個輸入，下次再生一張</span></div></div>
-        </div>
+    <div class="course-covers reveal">
+      <figure class="ccover" data-full="assets/cover/course-visual.jpg">
+        <span class="tag">真實課程封面</span>
+        <img src="assets/cover/course-visual.jpg" alt="四週 ChatGPT 日系視覺挑戰營 課程封面" loading="lazy" />
+        <figcaption>四週 ChatGPT 日系視覺挑戰營</figcaption>
+      </figure>
+      <figure class="ccover" data-full="assets/cover/course-5week.jpg">
+        <span class="tag">真實課程封面</span>
+        <img src="assets/cover/course-5week.jpg" alt="五週復盤習慣養成挑戰營 課程封面" loading="lazy" />
+        <figcaption>五週復盤習慣養成挑戰營</figcaption>
+      </figure>
+    </div>
+    <div class="cover-copy reveal d1" style="max-width:780px">
+      <h4>不靠設計理論，靠一套文字框架</h4>
+      <p>你不需要會 Photoshop，只要學會把想要的氛圍，拆成五個可描述的模組，剩下 80% 的設計工作交給 AI。</p>
+      <div class="flowline">
+        <div class="step"><span class="n grad-cb">1</span><div class="t"><b>寫下一句話</b><span>這張封面想傳達什麼感覺</span></div></div>
+        <div class="step"><span class="n grad-cb">2</span><div class="t"><b>套 5 模組設計規格</b><span>色彩・字體・構圖・氛圍・主題</span></div></div>
+        <div class="step"><span class="n grad-cb">3</span><div class="t"><b>生圖 → 微調 → 完成</b><span>換個輸入，下次再生一張</span></div></div>
       </div>
     </div>
     <div class="covers-head reveal">
-      <h4>更多封面實例</h4>
-      <span>取自朱騏部落格實際使用的封面，全部用同一套日系視覺工作流產出</span>
+      <h4>同一套工作流，還能做這些封面</h4>
+      <span>下面這些是朱騏實際用在部落格、電子報、社群貼文的封面——課程封面只是其中一種應用，學會之後，這些地方都能用同一套方法產出。</span>
     </div>
     <div class="covers reveal d1">
       <div class="cov" data-full="assets/covers-blog/cover-472.jpg"><img src="assets/covers-blog/cover-472.jpg" alt="部落格封面實例：Claude Code 市場研究" loading="lazy" /></div>
